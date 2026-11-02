@@ -1,0 +1,256 @@
+﻿Test ID,Feature,Feature File,Scenario,Tags,Priority,Test Type,Page,Automation Status,Gherkin Steps,Examples
+TC-NAV-001,Site navigation,navigation.feature,Each page loads with the correct title and main heading,@smoke @regression,High,Functional,All pages,Automated,"Given I open the ""<page>"" page
+Then the page title should be ""<title>""
+And the main heading should be ""<heading>""","| page | title | heading |
+| Home | Autolytics IT Consultancy \| Software Testing & Test Management | Software testing you can ship with confidence |
+| About Me | About Me \| Autolytics IT Consultancy | About Me |
+| Services | Services \| Autolytics IT Consultancy | Services |
+| Experience | Experience \| Autolytics IT Consultancy | Experience |"
+TC-NAV-002,Site navigation,navigation.feature,Header navigation links take the visitor to the correct page,@smoke @regression,High,Navigation,All pages,Automated,"Given I open the ""<start page>"" page
+When I click the ""<link>"" link in the header navigation
+Then I should be on the ""<destination>"" page
+And the main heading should be ""<heading>""","| start page | link | destination | heading |
+| Home | About Me | About Me | About Me |
+| Home | Services | Services | Services |
+| Home | Experience | Experience | Experience |
+| About Me | Home | Home | Software testing you can ship with confidence |
+| Services | About Me | About Me | About Me |
+| Experience | Services | Services | Services |"
+TC-NAV-003,Site navigation,navigation.feature,The current page is highlighted in the header navigation,@regression,Medium,Navigation,All pages,Automated,"Given I open the ""<page>"" page
+Then the ""<page>"" link in the header navigation should be marked as the current page
+And only one header navigation link should be marked as the current page","| page |
+| Home |
+| About Me |
+| Services |
+| Experience |"
+TC-NAV-004,Site navigation,navigation.feature,The site logo returns the visitor to the home page,@regression,Medium,Navigation,About Me; Services; Experience,Automated,"Given I open the ""<page>"" page
+When I click the site logo
+Then I should be on the ""Home"" page","| page |
+| About Me |
+| Services |
+| Experience |"
+TC-NAV-005,Site navigation,navigation.feature,The Contact link opens the contact section of the home page,@smoke @regression,High,Navigation,Services; Experience; Home,Automated,"Given I open the ""<page>"" page
+When I click the ""Contact"" link in the header navigation
+Then the URL should end with ""index.html#contact""
+And the section headed ""Let's talk about your next project"" should be in view","| page |
+| Services |
+| Experience |"
+TC-NAV-006,Site navigation,navigation.feature,Internal links and page anchors are not broken,@regression,High,Navigation,All pages,Automated,"Given I open the ""<page>"" page
+Then every internal link on the page should resolve","| page |
+| Home |
+| About Me |
+| Services |
+| Experience |"
+TC-NAV-007,Site navigation,navigation.feature,Pages load without JavaScript errors or missing files,@smoke @regression,High,Functional,All pages,Automated,"Given I open the ""<page>"" page
+Then there should be no JavaScript errors on the page","| page |
+| Home |
+| About Me |
+| Services |
+| Experience |"
+TC-HOME-001,Home page,home.feature,Hero buttons open the matching pages,@smoke @regression,High,Navigation,Home,Automated,"Given I open the ""Home"" page
+When I click the ""<button>"" link
+Then I should be on the ""<destination>"" page","| button | destination |
+| Our services | Services |
+| View experience | Experience |"
+TC-HOME-002,Home page,home.feature,Key statistics are displayed,@regression,Medium,Content,Home,Automated,"Given I open the ""Home"" page
+Then I should see the following statistics:
+| value | label |
+| 13+ | Years in software testing |
+| 8 | Organisations supported |
+| 5 | Sectors: health, retail, finance, logistics, property |
+| ISTQB | & Certified Agile Tester |",
+TC-HOME-003,Home page,home.feature,"The ""What we do"" section shows the four core services",@regression,Medium,Content,Home,Automated,"Given I open the ""Home"" page
+Then I should see the following service cards:
+| Software Testing |
+| Test Management |
+| Test Leadership |
+| Test Automation |",
+TC-HOME-004,Home page,home.feature,"""Learn more"" links open the matching service on the Services page",@regression,High,Navigation,Home; Services,Automated,"Given I open the ""Home"" page
+When I click ""Learn more"" on the ""<service>"" card
+Then I should be on the ""Services"" page
+And the URL should end with ""services.html#<anchor>""
+And the ""<service>"" service card should be in view","| service | anchor |
+| Software Testing | testing |
+| Test Management | test-management |
+| Test Leadership | test-lead |
+| Test Automation | automation |"
+TC-HOME-005,Home page,home.feature,Sector tags are displayed,@regression,Low,Content,Home,Automated,"Given I open the ""Home"" page
+Then the tags under the ""Trusted across sectors"" heading should be:
+| Healthcare |
+| Ecommerce & Retail |
+| Financial Services |
+| Logistics |
+| Property |
+| Cloud Transformation |
+| System Migration |",
+TC-HOME-006,Home page,home.feature,The LinkedIn contact button opens the LinkedIn profile in a new tab,@smoke @regression,High,Functional,Home,Automated,"Given I open the ""Home"" page
+Then the ""Connect on LinkedIn"" link should open ""https://www.linkedin.com/in/shakeel-malik-75149a85/"" in a new tab",
+TC-HOME-007,Home page,home.feature,The contact section shows a contact email address,@regression @fixme,High,Content,Home,Automated,"Given I open the ""Home"" page
+Then the contact section should show an email address",
+TC-ABOUT-001,About Me page,about.feature,Certifications are listed,@regression,Medium,Content,About Me,Automated,"Given I open the ""About Me"" page
+Then the list under the ""Certifications"" heading should be:
+| iSQI Certified Agile Tester (2018) |
+| ISTQB Software Testing Foundation (2013) |
+| ITIL Foundation V3 (2013) |
+| Service Desk SDI Foundation (2012) |",
+TC-ABOUT-002,About Me page,about.feature,Education details are shown,@regression,Low,Content,About Me,Automated,"Given I open the ""About Me"" page
+Then I should see the text ""BSc (Hons) Computing, 2:1""
+And I should see the text ""Sheffield Hallam University, 2007""",
+TC-ABOUT-003,About Me page,about.feature,Tools and technologies are listed,@regression,Low,Content,About Me,Automated,"Given I open the ""About Me"" page
+Then there should be 25 tags under the ""Tools & technologies"" heading
+And the tags under the ""Tools & technologies"" heading should include:
+| Playwright |
+| Selenium WebDriver |
+| Postman |
+| Azure DevOps |
+| Jira |",
+TC-ABOUT-004,About Me page,about.feature,"The ""View my experience"" button opens the Experience page",@regression,Medium,Navigation,About Me; Experience,Automated,"Given I open the ""About Me"" page
+When I click the ""View my experience"" link
+Then I should be on the ""Experience"" page",
+TC-SERV-001,Services page,services.feature,All six services are listed,@smoke @regression,High,Content,Services,Automated,"Given I open the ""Services"" page
+Then I should see the following service cards:
+| Software Testing |
+| Test Management |
+| Test Leadership |
+| UAT Management |
+| Test Automation |
+| QA Consultancy |",
+TC-SERV-002,Services page,services.feature,Each service can be linked to directly,@regression,Medium,Navigation,Services,Automated,"Given I open the path ""services.html#<anchor>""
+Then the ""<service>"" service card should be in view","| service | anchor |
+| Software Testing | testing |
+| Test Management | test-management |
+| Test Leadership | test-lead |
+| UAT Management | uat |
+| Test Automation | automation |
+| QA Consultancy | consultancy |"
+TC-SERV-003,Services page,services.feature,Each service card lists what is included,@regression,Low,Content,Services,Automated,"Given I open the ""Services"" page
+Then the ""<service>"" service card should list <count> items","| service | count |
+| Software Testing | 7 |
+| Test Management | 6 |
+| Test Leadership | 6 |
+| UAT Management | 6 |
+| Test Automation | 5 |
+| QA Consultancy | 4 |"
+TC-SERV-004,Services page,services.feature,"The ""Get in touch"" button opens the contact section",@smoke @regression,High,Navigation,Services; Home,Automated,"Given I open the ""Services"" page
+When I click the ""Get in touch"" link
+Then the URL should end with ""index.html#contact""
+And the section headed ""Let's talk about your next project"" should be in view",
+TC-EXP-001,Experience role tabs,experience-tabs.feature,The most recent role is shown by default,@smoke @regression,High,Functional,Experience,Automated,"Given I open the ""Experience"" page
+Then there should be 8 role tabs
+And the ""Answer Digital: NHS Genomics"" tab for the ""Test Manager"" role should be selected
+And the panel for ""Answer Digital: NHS Genomics"" as ""Test Manager"" should be displayed
+And only one role panel should be visible
+And the URL should not contain a hash",
+TC-EXP-002,Experience role tabs,experience-tabs.feature,Selecting a role tab shows that role's details,@smoke @regression,High,Functional,Experience,Automated,"Given I open the ""Experience"" page
+When I select the ""<company>"" tab for the ""<role>"" role
+Then the ""<company>"" tab for the ""<role>"" role should be selected
+And the panel for ""<company>"" as ""<role>"" should be displayed
+And the panel should show the dates ""<dates>""
+And only one role panel should be visible
+And the URL hash should be ""#<slug>""","| company | role | dates | slug |
+| Answer Digital: NHS Genomics | Test Manager | January 2025 to present | answer-digital |
+| Next PLC | Test Delivery Lead | September 2023 to September 2024 | next-2023 |
+| Arrow Global | UAT Test Lead | July 2022 to June 2023 | arrow-global |
+| BIDX1 | Test Manager | January 2022 to July 2022 | bidx1 |
+| Evri | Test Lead | March 2020 to January 2022 | evri |
+| Next PLC | QA Senior Test Analyst | April 2019 to March 2020 | next-2019 |
+| Computershare Loan Services | Test Analyst | October 2017 to April 2019 | computershare |
+| Provident Financial Group | Test Analyst | March 2013 to October 2017 | provident |"
+TC-EXP-003,Experience role tabs,experience-tabs.feature,A role can be opened directly from a link,@regression,High,Navigation,Experience,Automated,"Given I open the path ""experience.html#<slug>""
+Then the ""<company>"" tab for the ""<role>"" role should be selected
+And the panel for ""<company>"" as ""<role>"" should be displayed
+And only one role panel should be visible","| slug | company | role |
+| answer-digital | Answer Digital: NHS Genomics | Test Manager |
+| next-2023 | Next PLC | Test Delivery Lead |
+| arrow-global | Arrow Global | UAT Test Lead |
+| bidx1 | BIDX1 | Test Manager |
+| evri | Evri | Test Lead |
+| next-2019 | Next PLC | QA Senior Test Analyst |
+| computershare | Computershare Loan Services | Test Analyst |
+| provident | Provident Financial Group | Test Analyst |"
+TC-EXP-004,Experience role tabs,experience-tabs.feature,An unknown role link falls back to the most recent role,@regression @negative,Medium,Negative,Experience,Automated,"Given I open the path ""experience.html#does-not-exist""
+Then the ""Answer Digital: NHS Genomics"" tab for the ""Test Manager"" role should be selected
+And only one role panel should be visible",
+TC-EXP-005,Experience role tabs,experience-tabs.feature,Arrow keys move between role tabs,@regression @keyboard,High,Keyboard / Accessibility,Experience,Automated,"Given I open the path ""experience.html#<start slug>""
+When I press ""<key>"" on the selected tab
+Then the ""<company>"" tab for the ""<role>"" role should be selected
+And the ""<company>"" tab for the ""<role>"" role should have keyboard focus
+And the panel for ""<company>"" as ""<role>"" should be displayed","| start slug | key | company | role |
+| answer-digital | ArrowDown | Next PLC | Test Delivery Lead |
+| answer-digital | ArrowRight | Next PLC | Test Delivery Lead |
+| next-2023 | ArrowUp | Answer Digital: NHS Genomics | Test Manager |
+| next-2023 | ArrowLeft | Answer Digital: NHS Genomics | Test Manager |"
+TC-EXP-006,Experience role tabs,experience-tabs.feature,Arrow keys wrap around at the ends of the tab list,@regression @keyboard,Medium,Keyboard / Accessibility,Experience,Automated,"Given I open the path ""experience.html#<start slug>""
+When I press ""<key>"" on the selected tab
+Then the ""<company>"" tab for the ""<role>"" role should be selected
+And the panel for ""<company>"" as ""<role>"" should be displayed","| start slug | key | company | role |
+| answer-digital | ArrowUp | Provident Financial Group | Test Analyst |
+| provident | ArrowDown | Answer Digital: NHS Genomics | Test Manager |"
+TC-EXP-007,Experience role tabs,experience-tabs.feature,Only the selected tab is in the keyboard tab order,@regression @keyboard,Medium,Keyboard / Accessibility,Experience,Automated,"Given I open the path ""experience.html#evri""
+Then only the selected role tab should be reachable with the Tab key",
+TC-MOB-001,Mobile navigation menu,mobile-navigation.feature,The menu is collapsed on small screens,@smoke @regression @mobile,High,Responsive,All pages,Automated,"Given my browser window is 375 by 812 pixels
+And I open the ""<page>"" page
+Then the ""Menu"" button should be visible
+And the header navigation should be hidden
+And the menu button should show the menu is collapsed","| page |
+| Home |
+| About Me |
+| Services |
+| Experience |"
+TC-MOB-002,Mobile navigation menu,mobile-navigation.feature,Opening and closing the menu,@smoke @regression @mobile,High,Responsive,Home,Automated,"Given my browser window is 375 by 812 pixels
+And I open the ""Home"" page
+When I click the ""Menu"" button
+Then the header navigation should be visible
+And the menu button should show the menu is expanded
+When I click the ""Menu"" button
+Then the header navigation should be hidden
+And the menu button should show the menu is collapsed",
+TC-MOB-003,Mobile navigation menu,mobile-navigation.feature,Navigating to another page from the mobile menu,@regression @mobile,High,Responsive,Home,Automated,"Given my browser window is 375 by 812 pixels
+And I open the ""Home"" page
+When I click the ""Menu"" button
+And I click the ""<link>"" link in the header navigation
+Then I should be on the ""<destination>"" page","| link | destination |
+| About Me | About Me |
+| Services | Services |
+| Experience | Experience |"
+TC-MOB-004,Mobile navigation menu,mobile-navigation.feature,The navigation appears when the window is widened,@regression @mobile,Medium,Responsive,Home,Automated,"Given my browser window is 375 by 812 pixels
+And I open the ""Home"" page
+When I resize the browser window to 1280 by 800 pixels
+Then the header navigation should be visible
+And the ""Menu"" button should not be visible",
+TC-MOB-005,Mobile navigation menu,mobile-navigation.feature,The menu button is not shown on desktop screens,@regression,Medium,Responsive,Home,Automated,"Given my browser window is 1280 by 800 pixels
+And I open the ""Home"" page
+Then the header navigation should be visible
+And the ""Menu"" button should not be visible",
+TC-MOB-006,Mobile navigation menu,mobile-navigation.feature,The menu collapses when the window is narrowed,@regression @mobile,Medium,Responsive,Home,Automated,"Given my browser window is 1280 by 800 pixels
+And I open the ""Home"" page
+When I resize the browser window to 375 by 812 pixels
+Then the ""Menu"" button should be visible
+And the header navigation should be hidden
+And the menu button should show the menu is collapsed",
+TC-FOOT-001,Site footer,footer.feature,The copyright notice shows the current year,@regression,Medium,Functional,All pages,Automated,"Given I open the ""<page>"" page
+Then the footer should show the copyright notice for the current year","| page |
+| Home |
+| About Me |
+| Services |
+| Experience |"
+TC-FOOT-002,Site footer,footer.feature,The footer LinkedIn link opens in a new tab,@regression,Medium,Functional,All pages,Automated,"Given I open the ""<page>"" page
+Then the ""LinkedIn"" link should open ""https://www.linkedin.com/in/shakeel-malik-75149a85/"" in a new tab","| page |
+| Home |
+| About Me |
+| Services |
+| Experience |"
+TC-A11Y-001,Accessibility and page metadata,accessibility.feature,Pages have no serious or critical accessibility violations,@regression @a11y,High,Accessibility,All pages,Automated,"Given I open the ""<page>"" page
+Then the page should have no serious or critical accessibility violations","| page |
+| Home |
+| About Me |
+| Services |
+| Experience |"
+TC-A11Y-002,Accessibility and page metadata,accessibility.feature,"Pages declare their language, a description and one main heading",@regression @seo,Medium,Accessibility / SEO,All pages,Automated,"Given I open the ""<page>"" page
+Then the page language should be ""en-GB""
+And the page should have a meta description
+And the page should have exactly one main heading","| page |
+| Home |
+| About Me |
+| Services |
+| Experience |"
