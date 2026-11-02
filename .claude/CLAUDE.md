@@ -7,7 +7,8 @@ Owner: Shakeel Malik (Test Manager, founder). Static marketing site for Autolyti
 - `css/styles.css`: one stylesheet; colours are CSS variables in `:root`. Mobile breakpoint is `max-width: 820px`.
 - `js/main.js`: mobile menu toggle (matchMedia `change` listener), Experience tabs (click, arrow keys with wrap-around, `#slug` deep links, roving tabindex), footer year.
 - Header/nav and footer are copy-pasted into every page; change all four pages together.
-- Not hosted yet: no live URL or domain. Not a git repo.
+- Not hosted yet: no live URL or domain.
+- Git: public repo https://github.com/shak2209/autolytics-website (branch `main`, remote `origin`). Commits use the GitHub no-reply email, never the real one. Only commit/push when asked.
 
 ## Test framework (`autolytics-website-e2e/`)
 Playwright + TypeScript + playwright-bdd. Runs on Chrome (`channel: chrome`), Firefox (Playwright build) and Edge (`channel: msedge`).
