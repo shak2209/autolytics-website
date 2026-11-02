@@ -28,6 +28,7 @@ export default defineConfig({
     ['list'],
     ['html', { outputFolder: 'reports/playwright-html', open: 'never' }],
     ['junit', { outputFile: 'reports/junit.xml' }],
+    ['json', { outputFile: 'reports/results.json' }],
     cucumberReporter('html', { outputFile: 'reports/cucumber-report.html' }),
   ],
   use: {

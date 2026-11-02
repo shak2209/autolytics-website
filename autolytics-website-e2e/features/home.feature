@@ -70,8 +70,8 @@ Feature: Home page
     Given I open the "Home" page
     Then the "Connect on LinkedIn" link should open "https://www.linkedin.com/in/shakeel-malik-75149a85/" in a new tab
 
-  @TC-HOME-007 @regression @fixme @priority-high
-  Scenario: TC-HOME-007: The contact section shows a contact email address
+  @TC-HOME-007 @smoke @regression @priority-high
+  Scenario: TC-HOME-007: The contact section shows a clickable contact email address
     # Priority: High | Type: Content | Page: Home
     Given I open the "Home" page
-    Then the contact section should show an email address
+    Then the contact section should show the email address "Autolytics@outlook.com"

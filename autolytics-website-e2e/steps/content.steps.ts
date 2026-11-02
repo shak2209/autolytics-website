@@ -53,8 +53,10 @@ Then('I should see the text {string}', async ({ page }, text: string) => {
   await expect(page.getByText(text).first()).toBeVisible();
 });
 
-Then('the contact section should show an email address', async ({ site }) => {
-  await expect(site.contactSection.locator('a[href^="mailto:"]')).toBeVisible();
+Then('the contact section should show the email address {string}', async ({ site }, email: string) => {
+  const link = site.contactSection.getByRole('link', { name: email, exact: true });
+  await expect(link).toBeVisible();
+  await expect(link).toHaveAttribute('href', `mailto:${email}`);
 });
 
 Then('the footer should show the copyright notice for the current year', async ({ site }) => {

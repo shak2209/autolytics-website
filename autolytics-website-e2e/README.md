@@ -54,7 +54,14 @@ npm run test:headed      # watch it run
 npx playwright test --grep "@TC-EXP-002"            # a single test case
 npx playwright test --grep "@experience-tabs"       # a whole feature
 npm run report           # open the Playwright HTML report
+npm run test:report      # run everything, then build the readable report (see below)
+npm run report:build     # rebuild the readable report from the last run's results
 ```
+
+### Readable test report
+
+`reports/TEST-REPORT.html` (open in any browser) and `reports/TEST-REPORT.md` list every scenario with its
+Gherkin steps, the example data, and the pass/fail result in each browser, plus totals by browser and by area.
 
 By default the website files in the parent folder are served at `http://127.0.0.1:4173/`.
 To test a deployed site instead: `$env:BASE_URL = 'https://your-domain/'; npm test`.
