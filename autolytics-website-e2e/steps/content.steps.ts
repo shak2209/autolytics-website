@@ -28,6 +28,22 @@ Then('the {string} service card should list {int} items', async ({ site }, title
   await expect(site.serviceCard(title).locator('li')).toHaveCount(count);
 });
 
+Then('I should see {int} service cards', async ({ page }, count: number) => {
+  await expect(page.locator('#services-grid article.card')).toHaveCount(count);
+});
+
+Then('there should be no {string} service card', async ({ site }, title: string) => {
+  await expect(site.serviceCard(title)).toHaveCount(0);
+});
+
+Then('the {string} service card should have the summary {string}', async ({ site }, title: string, summary: string) => {
+  await expect(site.serviceCard(title).locator('p')).toHaveText(summary);
+});
+
+Then('the {string} service card should list the items:', async ({ site }, title: string, table: DataTable) => {
+  await expect(site.serviceCard(title).locator('li')).toHaveText(column(table));
+});
+
 Then('the tags under the {string} heading should be:', async ({ site }, heading: string, table: DataTable) => {
   await expect(site.tagsUnderHeading(heading)).toHaveText(column(table));
 });

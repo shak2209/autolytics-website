@@ -42,8 +42,19 @@ jobs:
       - name: Generate feature files from the CSV
         run: npm run generate
 
+      # Pull requests get the quick smoke check on Chrome; pushes to main run everything on all three browsers.
       - name: Run tests
-        run: npx playwright test
+        env:
+          E2E_EDITOR_USER: ${{ secrets.E2E_EDITOR_USER }}
+          E2E_EDITOR_PASSWORD: ${{ secrets.E2E_EDITOR_PASSWORD }}
+          E2E_VIEWER_USER: ${{ secrets.E2E_VIEWER_USER }}
+          E2E_VIEWER_PASSWORD: ${{ secrets.E2E_VIEWER_PASSWORD }}
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            npx playwright test --grep @smoke --project=chrome
+          else
+            npx playwright test
+          fi
 
       # Runs even when tests fail, so the report always shows what happened.
       - name: Build readable report
@@ -71,6 +82,10 @@ jobs:
           cp autolytics-website-e2e/reports/TEST-REPORT.html _site/test-report/index.html
           cp autolytics-website-e2e/reports/TEST-REPORT.md autolytics-website-e2e/reports/test-execution-results.csv _site/test-report/
           cp -r autolytics-website-e2e/reports/playwright-html/. _site/test-report/playwright-html/
+          # The demo admin area is for local and CI testing only. It must never be published.
+          if [ -e _site/admin ] || [ -e _site/js/auth.js ] || [ -e _site/users.js ]; then
+            echo "::error::The admin area must not be published"; exit 1
+          fi
 
       - name: Upload Pages artifact
         if: always() && github.ref == 'refs/heads/main'

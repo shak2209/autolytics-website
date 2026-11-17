@@ -2,9 +2,9 @@
 @navigation
 Feature: Site navigation
 
-  @TC-NAV-001 @smoke @regression @priority-high
+  @TC-NAV-001 @smoke @regression @REQ-NAV-02 @priority-high
   Scenario Outline: TC-NAV-001: Each page loads with the correct title and main heading
-    # Priority: High | Type: Functional | Page: All pages
+    # Priority: High | Type: Functional | Page: All pages | Requirement: REQ-NAV-02
     Given I open the "<page>" page
     Then the page title should be "<title>"
     And the main heading should be "<heading>"
@@ -16,9 +16,9 @@ Feature: Site navigation
       | Services | Services \| Autolytics IT Consultancy | Services |
       | Experience | Experience \| Autolytics IT Consultancy | Experience |
 
-  @TC-NAV-002 @smoke @regression @priority-high
+  @TC-NAV-002 @regression @REQ-NAV-01 @priority-high
   Scenario Outline: TC-NAV-002: Header navigation links take the visitor to the correct page
-    # Priority: High | Type: Navigation | Page: All pages
+    # Priority: High | Type: Navigation | Page: All pages | Requirement: REQ-NAV-01
     Given I open the "<start page>" page
     When I click the "<link>" link in the header navigation
     Then I should be on the "<destination>" page
@@ -33,9 +33,9 @@ Feature: Site navigation
       | Services | About Me | About Me | About Me |
       | Experience | Services | Services | Services |
 
-  @TC-NAV-003 @regression @priority-medium
+  @TC-NAV-003 @regression @REQ-NAV-01 @priority-medium
   Scenario Outline: TC-NAV-003: The current page is highlighted in the header navigation
-    # Priority: Medium | Type: Navigation | Page: All pages
+    # Priority: Medium | Type: Navigation | Page: All pages | Requirement: REQ-NAV-01
     Given I open the "<page>" page
     Then the "<page>" link in the header navigation should be marked as the current page
     And only one header navigation link should be marked as the current page
@@ -47,9 +47,9 @@ Feature: Site navigation
       | Services |
       | Experience |
 
-  @TC-NAV-004 @regression @priority-medium
+  @TC-NAV-004 @regression @REQ-NAV-01 @priority-medium
   Scenario Outline: TC-NAV-004: The site logo returns the visitor to the home page
-    # Priority: Medium | Type: Navigation | Page: About Me; Services; Experience
+    # Priority: Medium | Type: Navigation | Page: About Me; Services; Experience | Requirement: REQ-NAV-01
     Given I open the "<page>" page
     When I click the site logo
     Then I should be on the "Home" page
@@ -60,9 +60,9 @@ Feature: Site navigation
       | Services |
       | Experience |
 
-  @TC-NAV-005 @smoke @regression @priority-high
+  @TC-NAV-005 @regression @REQ-NAV-01 @priority-high
   Scenario Outline: TC-NAV-005: The Contact link opens the contact section of the home page
-    # Priority: High | Type: Navigation | Page: Services; Experience; Home
+    # Priority: High | Type: Navigation | Page: Services; Experience; Home | Requirement: REQ-NAV-01
     Given I open the "<page>" page
     When I click the "Contact" link in the header navigation
     Then the URL should end with "index.html#contact"
@@ -73,9 +73,9 @@ Feature: Site navigation
       | Services |
       | Experience |
 
-  @TC-NAV-006 @regression @priority-high
+  @TC-NAV-006 @regression @REQ-NAV-01 @priority-high
   Scenario Outline: TC-NAV-006: Internal links and page anchors are not broken
-    # Priority: High | Type: Navigation | Page: All pages
+    # Priority: High | Type: Navigation | Page: All pages | Requirement: REQ-NAV-01
     Given I open the "<page>" page
     Then every internal link on the page should resolve
 
@@ -86,9 +86,9 @@ Feature: Site navigation
       | Services |
       | Experience |
 
-  @TC-NAV-007 @smoke @regression @priority-high
+  @TC-NAV-007 @smoke @regression @REQ-NAV-02 @priority-high
   Scenario Outline: TC-NAV-007: Pages load without JavaScript errors or missing files
-    # Priority: High | Type: Functional | Page: All pages
+    # Priority: High | Type: Functional | Page: All pages | Requirement: REQ-NAV-02
     Given I open the "<page>" page
     Then there should be no JavaScript errors on the page
 

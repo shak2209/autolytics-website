@@ -24,9 +24,10 @@ const COLUMNS = {
   status: 'Automation Status',
   steps: 'Gherkin Steps',
   examples: 'Examples',
+  requirement: 'Requirement', // optional: one or more requirement IDs, e.g. "REQ-AUTH-01 REQ-AUTH-02"
 } as const;
 
-type Row = Record<(typeof COLUMNS)[keyof typeof COLUMNS], string>;
+type Row = Record<string, string>;
 
 const rows: Row[] = parse(readFileSync(csvPath), { bom: true, columns: true, skip_empty_lines: true, trim: false });
 
@@ -78,7 +79,8 @@ for (const [file, { feature, rows: featureRows }] of byFile) {
 
   for (const row of featureRows) {
     const id = row[COLUMNS.id].trim();
-    const tags = [`@${id}`, ...splitTags(row[COLUMNS.tags])];
+    const requirements = (row[COLUMNS.requirement] ?? '').split(/[\s,]+/).filter(Boolean);
+    const tags = [`@${id}`, ...splitTags(row[COLUMNS.tags]), ...requirements.map((r) => `@${r}`)];
     if (row[COLUMNS.status]?.trim().toLowerCase() === 'manual') tags.push('@manual');
     const priority = row[COLUMNS.priority]?.trim();
     if (priority) tags.push(`@priority-${priority.toLowerCase()}`);
@@ -87,6 +89,7 @@ for (const [file, { feature, rows: featureRows }] of byFile) {
       priority && `Priority: ${priority}`,
       row[COLUMNS.type]?.trim() && `Type: ${row[COLUMNS.type].trim()}`,
       row[COLUMNS.page]?.trim() && `Page: ${row[COLUMNS.page].trim()}`,
+      requirements.length && `Requirement: ${requirements.join(', ')}`,
     ].filter(Boolean);
 
     const hasExamples = !!row[COLUMNS.examples]?.trim();

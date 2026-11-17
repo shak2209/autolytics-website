@@ -44,12 +44,28 @@ npm install
 npm run install:browsers   # Playwright's Firefox; Chrome and Edge use the installed browsers
 ```
 
+### Admin passwords (for the sign-in tests)
+
+The demo admin area (`../admin`) is tested with two accounts. Their passwords are **not** in the repository:
+only salted hashes are (`../admin/users.js`).
+
+- **Locally:** copy `.env.example` to `.env` and fill in the passwords. `.env` is git-ignored.
+- **In GitHub Actions:** the secrets `E2E_EDITOR_USER`, `E2E_EDITOR_PASSWORD`, `E2E_VIEWER_USER` and
+  `E2E_VIEWER_PASSWORD` (Settings, Secrets and variables, Actions).
+- **If they are missing**, the few scenarios that type a real password are *skipped*, not failed. Everything else
+  (including all editing scenarios, which start from a ready-made session) still runs.
+
+To use the admin area by hand, run `npx tsx scripts/static-server.ts` and open http://127.0.0.1:4173/admin/index.html.
+
+If a hash ever needs to be regenerated for a new password, hash it with PBKDF2-SHA-256, 150,000 iterations, using the
+salt bytes decoded from the hex string in `users.js`.
+
 ## Running
 
 ```powershell
 npm test                 # all browsers
 npm run test:chrome      # or test:firefox / test:edge
-npm run test:smoke       # @smoke scenarios only
+npm run test:smoke       # the quick @smoke set (6 scenarios) on all browsers, about 20 seconds
 npm run test:headed      # watch it run
 npx playwright test --grep "@TC-EXP-002"            # a single test case
 npx playwright test --grep "@experience-tabs"       # a whole feature

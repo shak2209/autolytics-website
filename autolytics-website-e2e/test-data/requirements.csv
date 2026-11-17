@@ -1,0 +1,21 @@
+﻿Requirement ID,Requirement,Area
+REQ-NAV-01,"Visitors can move between all pages using the header, logo and links",Public site
+REQ-NAV-02,"Every page loads correctly, with the right title and no errors",Public site
+REQ-CONT-01,Pages show accurate company information,Public site
+REQ-CONT-02,Visitors can contact the company by email and LinkedIn,Public site
+REQ-EXP-01,Visitors can browse career roles using tabs and direct links,Public site
+REQ-EXP-02,Role tabs can be used with the keyboard,Public site
+REQ-RESP-01,"The site works on small screens, with a collapsible menu",Public site
+REQ-FOOT-01,The footer shows the current year and a LinkedIn link,Public site
+REQ-A11Y-01,Public pages meet WCAG 2.1 AA and have correct page metadata,Public site
+REQ-AUTH-01,Authorised staff can sign in with valid credentials,Admin area
+REQ-AUTH-02,"Invalid sign-ins are rejected without revealing which detail was wrong, and repeated failures lock sign-in",Admin area
+REQ-AUTH-03,"Sessions end on sign-out, after 15 minutes of inactivity, and across browser tabs",Admin area
+REQ-AUTH-04,Admin pages are not available to signed-out visitors,Admin area
+REQ-AUTH-05,Viewers have read-only access; only editors can change services,Admin area
+REQ-SVC-01,"Editors can add, edit and delete services",Admin area
+REQ-SVC-02,"Service details are validated, with clear and accessible error messages",Admin area
+REQ-SVC-03,Changes appear on the public Services page and survive a reload,Admin area
+REQ-SVC-04,Saved text is always displayed safely and never run as code,Admin area
+REQ-SVC-05,Editors can reset the services to the original list,Admin area
+REQ-A11Y-02,"Admin pages are accessible, usable by keyboard, and fit small screens",Admin area

@@ -2,9 +2,9 @@
 @footer
 Feature: Site footer
 
-  @TC-FOOT-001 @regression @priority-medium
+  @TC-FOOT-001 @regression @REQ-FOOT-01 @priority-medium
   Scenario Outline: TC-FOOT-001: The copyright notice shows the current year
-    # Priority: Medium | Type: Functional | Page: All pages
+    # Priority: Medium | Type: Functional | Page: All pages | Requirement: REQ-FOOT-01
     Given I open the "<page>" page
     Then the footer should show the copyright notice for the current year
 
@@ -15,9 +15,9 @@ Feature: Site footer
       | Services |
       | Experience |
 
-  @TC-FOOT-002 @regression @priority-medium
+  @TC-FOOT-002 @regression @REQ-FOOT-01 @REQ-CONT-02 @priority-medium
   Scenario Outline: TC-FOOT-002: The footer LinkedIn link opens in a new tab
-    # Priority: Medium | Type: Functional | Page: All pages
+    # Priority: Medium | Type: Functional | Page: All pages | Requirement: REQ-FOOT-01, REQ-CONT-02
     Given I open the "<page>" page
     Then the "LinkedIn" link should open "https://www.linkedin.com/in/shakeel-malik-75149a85/" in a new tab
 

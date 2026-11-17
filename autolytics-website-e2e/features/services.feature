@@ -2,9 +2,9 @@
 @services
 Feature: Services page
 
-  @TC-SERV-001 @smoke @regression @priority-high
+  @TC-SERV-001 @regression @REQ-CONT-01 @priority-high
   Scenario: TC-SERV-001: All six services are listed
-    # Priority: High | Type: Content | Page: Services
+    # Priority: High | Type: Content | Page: Services | Requirement: REQ-CONT-01
     Given I open the "Services" page
     Then I should see the following service cards:
       | Software Testing |
@@ -14,9 +14,9 @@ Feature: Services page
       | Test Automation |
       | QA Consultancy |
 
-  @TC-SERV-002 @regression @priority-medium
+  @TC-SERV-002 @regression @REQ-NAV-01 @priority-medium
   Scenario Outline: TC-SERV-002: Each service can be linked to directly
-    # Priority: Medium | Type: Navigation | Page: Services
+    # Priority: Medium | Type: Navigation | Page: Services | Requirement: REQ-NAV-01
     Given I open the path "services.html#<anchor>"
     Then the "<service>" service card should be in view
 
@@ -29,9 +29,9 @@ Feature: Services page
       | Test Automation | automation |
       | QA Consultancy | consultancy |
 
-  @TC-SERV-003 @regression @priority-low
+  @TC-SERV-003 @regression @REQ-CONT-01 @priority-low
   Scenario Outline: TC-SERV-003: Each service card lists what is included
-    # Priority: Low | Type: Content | Page: Services
+    # Priority: Low | Type: Content | Page: Services | Requirement: REQ-CONT-01
     Given I open the "Services" page
     Then the "<service>" service card should list <count> items
 
@@ -44,9 +44,9 @@ Feature: Services page
       | Test Automation | 5 |
       | QA Consultancy | 4 |
 
-  @TC-SERV-004 @smoke @regression @priority-high
+  @TC-SERV-004 @regression @REQ-NAV-01 @priority-high
   Scenario: TC-SERV-004: The "Get in touch" button opens the contact section
-    # Priority: High | Type: Navigation | Page: Services; Home
+    # Priority: High | Type: Navigation | Page: Services; Home | Requirement: REQ-NAV-01
     Given I open the "Services" page
     When I click the "Get in touch" link
     Then the URL should end with "index.html#contact"

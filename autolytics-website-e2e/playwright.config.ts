@@ -1,5 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
 import { defineBddConfig, cucumberReporter } from 'playwright-bdd';
+import { existsSync } from 'node:fs';
+
+// Local admin passwords (git-ignored). In CI they come from GitHub Actions secrets instead.
+if (existsSync('.env')) process.loadEnvFile('.env');
 
 // Set BASE_URL to test a deployed copy of the site, e.g.
 //   $env:BASE_URL = 'https://www.example.com/'; npm test
@@ -20,7 +24,7 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 1,
-  workers: process.env.CI ? 2 : undefined,
+  workers: process.env.CI ? 4 : undefined,
   timeout: 30_000,
   expect: { timeout: 5_000 },
   outputDir: 'reports/test-results',

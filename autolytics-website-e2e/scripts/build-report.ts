@@ -19,7 +19,7 @@ const BROWSERS: Record<string, string> = { chrome: 'Chrome', firefox: 'Firefox',
 interface Run { id: string; example: number; browser: string; status: Status; ms: number }
 interface CaseRow {
   id: string; feature: string; file: string; scenario: string; tags: string; priority: string;
-  type: string; page: string; steps: string; examples: string;
+  type: string; page: string; steps: string; examples: string; req: string;
 }
 
 // ---------- Load ----------
@@ -29,8 +29,13 @@ const csv: CaseRow[] = csvRows.map(
   (r) => ({
     id: r['Test ID'], feature: r['Feature'], file: r['Feature File'], scenario: r['Scenario'], tags: r['Tags'],
     priority: r['Priority'], type: r['Test Type'], page: r['Page'], steps: r['Gherkin Steps'], examples: r['Examples'],
+    req: r['Requirement'] ?? '',
   }),
 );
+const requirements: { id: string; text: string; area: string }[] = (
+  parse(readFileSync(path.resolve('test-data/requirements.csv')), { bom: true, columns: true, skip_empty_lines: true }) as Record<string, string>[]
+).map((r) => ({ id: r['Requirement ID'], text: r['Requirement'], area: r['Area'] }));
+const reqIds = (c: CaseRow) => c.req.split(/[\s,]+/).filter(Boolean);
 
 const runs: Run[] = [];
 (function walk(suites: any[]) {
@@ -100,13 +105,22 @@ for (const f of features) {
 }
 md.push('');
 
+md.push('## Requirements coverage', '', 'Each requirement is traced to the test scenarios that check it.', '');
+md.push('| Requirement | Description | Scenarios | Runs | Passed | Result |', '| --- | --- | ---: | ---: | ---: | --- |');
+for (const q of requirements) {
+  const cases = csv.filter((c) => reqIds(c).includes(q.id));
+  const rs = runs.filter((r) => cases.some((c) => c.id === r.id));
+  md.push(`| ${q.id} | ${mdCell(q.text)} | ${cases.length} | ${rs.length} | ${count(rs, 'pass')} | ${rs.length ? ICON[worst(rs)] : '-'} |`);
+}
+md.push('');
+
 md.push('## What was tested', '', 'Every scenario is written in Gherkin (Given / When / Then). Where a scenario has an Examples table, it runs once per row, in every browser.', '');
 for (const f of features) {
   md.push(`### ${f.name}`, '');
   for (const c of f.cases) {
     const rs = runs.filter((r) => r.id === c.id);
     md.push(`#### ${c.id}: ${c.scenario}`, '');
-    md.push(`**Result:** ${ICON[worst(rs)]} · **Priority:** ${c.priority} · **Type:** ${c.type} · **Page:** ${c.page} · **Tags:** \`${c.tags}\``, '');
+    md.push(`**Result:** ${ICON[worst(rs)]} · **Priority:** ${c.priority} · **Type:** ${c.type} · **Page:** ${c.page} · **Requirement:** ${reqIds(c).join(', ') || '-'} · **Tags:** \`${c.tags}\``, '');
     md.push('```gherkin', ...lines(c.steps).map((s) => (s.startsWith('|') ? `    ${s}` : s)), '```', '');
 
     const header = browsers.map((b) => BROWSERS[b]);
@@ -168,13 +182,19 @@ for (const f of features) {
   const rs = runs.filter((r) => f.cases.some((c) => c.id === r.id));
   h.push(`<tr><td>${esc(f.name)}</td><td class="n">${f.cases.length}</td><td class="n">${rs.length}</td><td class="n">${count(rs, 'pass')}</td><td class="n">${count(rs, 'fail')}</td></tr>`);
 }
+h.push('</table><h2>Requirements coverage</h2><p>Each requirement is traced to the test scenarios that check it.</p><table><tr><th>Requirement</th><th>Description</th><th>Scenarios</th><th>Runs</th><th>Passed</th><th>Result</th></tr>');
+for (const q of requirements) {
+  const cases = csv.filter((c) => reqIds(c).includes(q.id));
+  const rs = runs.filter((r) => cases.some((c) => c.id === r.id));
+  h.push(`<tr><td>${esc(q.id)}</td><td>${esc(q.text)}</td><td class="n">${cases.length}</td><td class="n">${rs.length}</td><td class="n">${count(rs, 'pass')}</td><td>${rs.length ? badge(worst(rs)) : '-'}</td></tr>`);
+}
 h.push('</table><h2>What was tested</h2><p>Every scenario is written in Gherkin (Given / When / Then). Where a scenario has an Examples table, it runs once per row, in every browser.</p>');
 for (const f of features) {
   h.push(`<h3>${esc(f.name)}</h3>`);
   for (const c of f.cases) {
     const rs = runs.filter((r) => r.id === c.id);
     h.push(`<h4>${esc(c.id)}: ${esc(c.scenario)} ${badge(worst(rs))}</h4>`);
-    h.push(`<p class="meta">Priority: ${esc(c.priority)} · Type: ${esc(c.type)} · Page: ${esc(c.page)} · Tags: ${esc(c.tags)}</p>`);
+    h.push(`<p class="meta">Priority: ${esc(c.priority)} · Type: ${esc(c.type)} · Page: ${esc(c.page)} · Requirement: ${esc(reqIds(c).join(', ') || '-')} · Tags: ${esc(c.tags)}</p>`);
     h.push(`<pre>${esc(lines(c.steps).map((s) => (s.startsWith('|') ? `    ${s}` : s)).join('\n'))}</pre>`);
     const head = browsers.map((b) => `<th>${BROWSERS[b]}</th>`).join('');
     if (c.examples.trim()) {
@@ -199,13 +219,13 @@ const csvCell = (v: string | number) => {
   return /[",\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 };
 const STATUS_TEXT: Record<Status, string> = { pass: 'Passed', fail: 'Failed', flaky: 'Flaky', skip: 'Skipped' };
-const out = [['Test ID', 'Feature', 'Scenario', 'Priority', 'Test Type', 'Page', 'Example #', 'Example Data', 'Browser', 'Result', 'Duration (s)', 'Tags'].map(csvCell).join(',')];
+const out = [['Test ID', 'Requirement', 'Feature', 'Scenario', 'Priority', 'Test Type', 'Page', 'Example #', 'Example Data', 'Browser', 'Result', 'Duration (s)', 'Tags'].map(csvCell).join(',')];
 for (const c of csv) {
   const exRows = c.examples.trim() ? lines(c.examples).map(splitRow) : [];
   const [cols, ...data] = exRows;
   for (const r of runs.filter((x) => x.id === c.id).sort((a, b) => a.example - b.example || browsers.indexOf(a.browser) - browsers.indexOf(b.browser))) {
     const exampleData = r.example && data[r.example - 1] ? cols.map((col, i) => `${col}=${data[r.example - 1][i]}`).join('; ') : '';
-    out.push([c.id, c.feature, c.scenario, c.priority, c.type, c.page, r.example || '', exampleData, BROWSERS[r.browser] ?? r.browser, STATUS_TEXT[r.status], (r.ms / 1000).toFixed(2), c.tags].map(csvCell).join(','));
+    out.push([c.id, reqIds(c).join(' '), c.feature, c.scenario, c.priority, c.type, c.page, r.example || '', exampleData, BROWSERS[r.browser] ?? r.browser, STATUS_TEXT[r.status], (r.ms / 1000).toFixed(2), c.tags].map(csvCell).join(','));
   }
 }
 writeFileSync('reports/test-execution-results.csv', '﻿' + out.join('\r\n') + '\r\n', 'utf8');

@@ -22,13 +22,32 @@ e.g. `experience.html#evri`.
 
 To view it, open `index.html` in a browser.
 
+### The demo admin area (not published)
+
+To give the tests real functionality to exercise, the repository includes a small staff area in [`admin/`](admin):
+sign in, then add, edit, delete and reset the services shown on the public Services page.
+
+- It has two roles: an **Editor** (full access) and a **Viewer** (read-only).
+- Sign-in locks after 3 failed attempts, and sessions expire after 15 minutes of inactivity.
+- It runs entirely in the browser, so it **simulates** sign-in for demonstration and testing purposes. It is not real security.
+- Passwords are stored only as salted hashes in the code. The real passwords are kept out of the repository
+  (a git-ignored `.env` file locally, encrypted secrets in GitHub Actions).
+- The admin area is **not part of the published website**, so visitors to the live site cannot sign in.
+  The tests run against it locally and in GitHub Actions.
+
 ### The test framework
 
-- **39 Gherkin scenarios** (324 test runs) kept in a CSV, which is the single source of truth.
+- **80 Gherkin scenarios** (537 test runs) kept in a CSV, which is the single source of truth.
   A generator turns the CSV into `.feature` files, which run through Playwright.
+  Each scenario is traced to a requirement, and the report shows requirement coverage.
+- **Fast feedback:** a 6-scenario smoke set runs in about 7 seconds on Chrome (used for pull requests);
+  the full suite runs on all three browsers for every push to `main`.
 - **Three browsers:** Chrome, Firefox and Edge.
 - **Coverage:** navigation and broken links, page content, tab behaviour (mouse, keyboard, direct links),
   the mobile menu, the footer, JavaScript errors, and WCAG 2.1 AA accessibility scans with axe.
+  For the admin area: sign-in and lock-out, session expiry and sign-out (including across tabs), role permissions,
+  add/edit/delete with boundary-value and negative validation, safe handling of script text (XSS),
+  and keyboard and mobile use.
 - **Page Object Model**, reusable step definitions, and Playwright HTML, Cucumber HTML and JUnit reports.
 - Found and fixed two real defects in the site: insufficient colour contrast and a mobile menu
   that stayed open when the window was narrowed.

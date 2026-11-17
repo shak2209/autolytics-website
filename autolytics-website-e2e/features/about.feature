@@ -2,9 +2,9 @@
 @about
 Feature: About Me page
 
-  @TC-ABOUT-001 @regression @priority-medium
+  @TC-ABOUT-001 @regression @REQ-CONT-01 @priority-medium
   Scenario: TC-ABOUT-001: Certifications are listed
-    # Priority: Medium | Type: Content | Page: About Me
+    # Priority: Medium | Type: Content | Page: About Me | Requirement: REQ-CONT-01
     Given I open the "About Me" page
     Then the list under the "Certifications" heading should be:
       | iSQI Certified Agile Tester (2018) |
@@ -12,16 +12,16 @@ Feature: About Me page
       | ITIL Foundation V3 (2013) |
       | Service Desk SDI Foundation (2012) |
 
-  @TC-ABOUT-002 @regression @priority-low
+  @TC-ABOUT-002 @regression @REQ-CONT-01 @priority-low
   Scenario: TC-ABOUT-002: Education details are shown
-    # Priority: Low | Type: Content | Page: About Me
+    # Priority: Low | Type: Content | Page: About Me | Requirement: REQ-CONT-01
     Given I open the "About Me" page
     Then I should see the text "BSc (Hons) Computing, 2:1"
     And I should see the text "Sheffield Hallam University, 2007"
 
-  @TC-ABOUT-003 @regression @priority-low
+  @TC-ABOUT-003 @regression @REQ-CONT-01 @priority-low
   Scenario: TC-ABOUT-003: Tools and technologies are listed
-    # Priority: Low | Type: Content | Page: About Me
+    # Priority: Low | Type: Content | Page: About Me | Requirement: REQ-CONT-01
     Given I open the "About Me" page
     Then there should be 25 tags under the "Tools & technologies" heading
     And the tags under the "Tools & technologies" heading should include:
@@ -31,9 +31,9 @@ Feature: About Me page
       | Azure DevOps |
       | Jira |
 
-  @TC-ABOUT-004 @regression @priority-medium
+  @TC-ABOUT-004 @regression @REQ-NAV-01 @priority-medium
   Scenario: TC-ABOUT-004: The "View my experience" button opens the Experience page
-    # Priority: Medium | Type: Navigation | Page: About Me; Experience
+    # Priority: Medium | Type: Navigation | Page: About Me; Experience | Requirement: REQ-NAV-01
     Given I open the "About Me" page
     When I click the "View my experience" link
     Then I should be on the "Experience" page

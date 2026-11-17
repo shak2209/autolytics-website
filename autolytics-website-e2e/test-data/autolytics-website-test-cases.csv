@@ -1,12 +1,12 @@
-﻿Test ID,Feature,Feature File,Scenario,Tags,Priority,Test Type,Page,Automation Status,Gherkin Steps,Examples
+﻿Test ID,Feature,Feature File,Scenario,Tags,Priority,Test Type,Page,Automation Status,Gherkin Steps,Examples,Requirement
 TC-NAV-001,Site navigation,navigation.feature,Each page loads with the correct title and main heading,@smoke @regression,High,Functional,All pages,Automated,"Given I open the ""<page>"" page
 Then the page title should be ""<title>""
 And the main heading should be ""<heading>""","| page | title | heading |
 | Home | Autolytics IT Consultancy \| Software Testing & Test Management | Software testing you can ship with confidence |
 | About Me | About Me \| Autolytics IT Consultancy | About Me |
 | Services | Services \| Autolytics IT Consultancy | Services |
-| Experience | Experience \| Autolytics IT Consultancy | Experience |"
-TC-NAV-002,Site navigation,navigation.feature,Header navigation links take the visitor to the correct page,@smoke @regression,High,Navigation,All pages,Automated,"Given I open the ""<start page>"" page
+| Experience | Experience \| Autolytics IT Consultancy | Experience |",REQ-NAV-02
+TC-NAV-002,Site navigation,navigation.feature,Header navigation links take the visitor to the correct page,@regression,High,Navigation,All pages,Automated,"Given I open the ""<start page>"" page
 When I click the ""<link>"" link in the header navigation
 Then I should be on the ""<destination>"" page
 And the main heading should be ""<heading>""","| start page | link | destination | heading |
@@ -15,56 +15,56 @@ And the main heading should be ""<heading>""","| start page | link | destination
 | Home | Experience | Experience | Experience |
 | About Me | Home | Home | Software testing you can ship with confidence |
 | Services | About Me | About Me | About Me |
-| Experience | Services | Services | Services |"
+| Experience | Services | Services | Services |",REQ-NAV-01
 TC-NAV-003,Site navigation,navigation.feature,The current page is highlighted in the header navigation,@regression,Medium,Navigation,All pages,Automated,"Given I open the ""<page>"" page
 Then the ""<page>"" link in the header navigation should be marked as the current page
 And only one header navigation link should be marked as the current page","| page |
 | Home |
 | About Me |
 | Services |
-| Experience |"
+| Experience |",REQ-NAV-01
 TC-NAV-004,Site navigation,navigation.feature,The site logo returns the visitor to the home page,@regression,Medium,Navigation,About Me; Services; Experience,Automated,"Given I open the ""<page>"" page
 When I click the site logo
 Then I should be on the ""Home"" page","| page |
 | About Me |
 | Services |
-| Experience |"
-TC-NAV-005,Site navigation,navigation.feature,The Contact link opens the contact section of the home page,@smoke @regression,High,Navigation,Services; Experience; Home,Automated,"Given I open the ""<page>"" page
+| Experience |",REQ-NAV-01
+TC-NAV-005,Site navigation,navigation.feature,The Contact link opens the contact section of the home page,@regression,High,Navigation,Services; Experience; Home,Automated,"Given I open the ""<page>"" page
 When I click the ""Contact"" link in the header navigation
 Then the URL should end with ""index.html#contact""
 And the section headed ""Let's talk about your next project"" should be in view","| page |
 | Services |
-| Experience |"
+| Experience |",REQ-NAV-01
 TC-NAV-006,Site navigation,navigation.feature,Internal links and page anchors are not broken,@regression,High,Navigation,All pages,Automated,"Given I open the ""<page>"" page
 Then every internal link on the page should resolve","| page |
 | Home |
 | About Me |
 | Services |
-| Experience |"
+| Experience |",REQ-NAV-01
 TC-NAV-007,Site navigation,navigation.feature,Pages load without JavaScript errors or missing files,@smoke @regression,High,Functional,All pages,Automated,"Given I open the ""<page>"" page
 Then there should be no JavaScript errors on the page","| page |
 | Home |
 | About Me |
 | Services |
-| Experience |"
-TC-HOME-001,Home page,home.feature,Hero buttons open the matching pages,@smoke @regression,High,Navigation,Home,Automated,"Given I open the ""Home"" page
+| Experience |",REQ-NAV-02
+TC-HOME-001,Home page,home.feature,Hero buttons open the matching pages,@regression,High,Navigation,Home,Automated,"Given I open the ""Home"" page
 When I click the ""<button>"" link
 Then I should be on the ""<destination>"" page","| button | destination |
 | Our services | Services |
-| View experience | Experience |"
+| View experience | Experience |",REQ-NAV-01
 TC-HOME-002,Home page,home.feature,Key statistics are displayed,@regression,Medium,Content,Home,Automated,"Given I open the ""Home"" page
 Then I should see the following statistics:
 | value | label |
 | 13+ | Years in software testing |
 | 8 | Organisations supported |
 | 5 | Sectors: health, retail, finance, logistics, property |
-| ISTQB | & Certified Agile Tester |",
+| ISTQB | & Certified Agile Tester |",,REQ-CONT-01
 TC-HOME-003,Home page,home.feature,"The ""What we do"" section shows the four core services",@regression,Medium,Content,Home,Automated,"Given I open the ""Home"" page
 Then I should see the following service cards:
 | Software Testing |
 | Test Management |
 | Test Leadership |
-| Test Automation |",
+| Test Automation |",,REQ-CONT-01
 TC-HOME-004,Home page,home.feature,"""Learn more"" links open the matching service on the Services page",@regression,High,Navigation,Home; Services,Automated,"Given I open the ""Home"" page
 When I click ""Learn more"" on the ""<service>"" card
 Then I should be on the ""Services"" page
@@ -73,7 +73,7 @@ And the ""<service>"" service card should be in view","| service | anchor |
 | Software Testing | testing |
 | Test Management | test-management |
 | Test Leadership | test-lead |
-| Test Automation | automation |"
+| Test Automation | automation |",REQ-NAV-01
 TC-HOME-005,Home page,home.feature,Sector tags are displayed,@regression,Low,Content,Home,Automated,"Given I open the ""Home"" page
 Then the tags under the ""Trusted across sectors"" heading should be:
 | Healthcare |
@@ -82,20 +82,20 @@ Then the tags under the ""Trusted across sectors"" heading should be:
 | Logistics |
 | Property |
 | Cloud Transformation |
-| System Migration |",
-TC-HOME-006,Home page,home.feature,The LinkedIn contact button opens the LinkedIn profile in a new tab,@smoke @regression,High,Functional,Home,Automated,"Given I open the ""Home"" page
-Then the ""Connect on LinkedIn"" link should open ""https://www.linkedin.com/in/shakeel-malik-75149a85/"" in a new tab",
+| System Migration |",,REQ-CONT-01
+TC-HOME-006,Home page,home.feature,The LinkedIn contact button opens the LinkedIn profile in a new tab,@regression,High,Functional,Home,Automated,"Given I open the ""Home"" page
+Then the ""Connect on LinkedIn"" link should open ""https://www.linkedin.com/in/shakeel-malik-75149a85/"" in a new tab",,REQ-CONT-02
 TC-HOME-007,Home page,home.feature,The contact section shows a clickable contact email address,@smoke @regression,High,Content,Home,Automated,"Given I open the ""Home"" page
-Then the contact section should show the email address ""Autolytics@outlook.com""",
+Then the contact section should show the email address ""Autolytics@outlook.com""",,REQ-CONT-02
 TC-ABOUT-001,About Me page,about.feature,Certifications are listed,@regression,Medium,Content,About Me,Automated,"Given I open the ""About Me"" page
 Then the list under the ""Certifications"" heading should be:
 | iSQI Certified Agile Tester (2018) |
 | ISTQB Software Testing Foundation (2013) |
 | ITIL Foundation V3 (2013) |
-| Service Desk SDI Foundation (2012) |",
+| Service Desk SDI Foundation (2012) |",,REQ-CONT-01
 TC-ABOUT-002,About Me page,about.feature,Education details are shown,@regression,Low,Content,About Me,Automated,"Given I open the ""About Me"" page
 Then I should see the text ""BSc (Hons) Computing, 2:1""
-And I should see the text ""Sheffield Hallam University, 2007""",
+And I should see the text ""Sheffield Hallam University, 2007""",,REQ-CONT-01
 TC-ABOUT-003,About Me page,about.feature,Tools and technologies are listed,@regression,Low,Content,About Me,Automated,"Given I open the ""About Me"" page
 Then there should be 25 tags under the ""Tools & technologies"" heading
 And the tags under the ""Tools & technologies"" heading should include:
@@ -103,18 +103,18 @@ And the tags under the ""Tools & technologies"" heading should include:
 | Selenium WebDriver |
 | Postman |
 | Azure DevOps |
-| Jira |",
+| Jira |",,REQ-CONT-01
 TC-ABOUT-004,About Me page,about.feature,"The ""View my experience"" button opens the Experience page",@regression,Medium,Navigation,About Me; Experience,Automated,"Given I open the ""About Me"" page
 When I click the ""View my experience"" link
-Then I should be on the ""Experience"" page",
-TC-SERV-001,Services page,services.feature,All six services are listed,@smoke @regression,High,Content,Services,Automated,"Given I open the ""Services"" page
+Then I should be on the ""Experience"" page",,REQ-NAV-01
+TC-SERV-001,Services page,services.feature,All six services are listed,@regression,High,Content,Services,Automated,"Given I open the ""Services"" page
 Then I should see the following service cards:
 | Software Testing |
 | Test Management |
 | Test Leadership |
 | UAT Management |
 | Test Automation |
-| QA Consultancy |",
+| QA Consultancy |",,REQ-CONT-01
 TC-SERV-002,Services page,services.feature,Each service can be linked to directly,@regression,Medium,Navigation,Services,Automated,"Given I open the path ""services.html#<anchor>""
 Then the ""<service>"" service card should be in view","| service | anchor |
 | Software Testing | testing |
@@ -122,7 +122,7 @@ Then the ""<service>"" service card should be in view","| service | anchor |
 | Test Leadership | test-lead |
 | UAT Management | uat |
 | Test Automation | automation |
-| QA Consultancy | consultancy |"
+| QA Consultancy | consultancy |",REQ-NAV-01
 TC-SERV-003,Services page,services.feature,Each service card lists what is included,@regression,Low,Content,Services,Automated,"Given I open the ""Services"" page
 Then the ""<service>"" service card should list <count> items","| service | count |
 | Software Testing | 7 |
@@ -130,18 +130,18 @@ Then the ""<service>"" service card should list <count> items","| service | coun
 | Test Leadership | 6 |
 | UAT Management | 6 |
 | Test Automation | 5 |
-| QA Consultancy | 4 |"
-TC-SERV-004,Services page,services.feature,"The ""Get in touch"" button opens the contact section",@smoke @regression,High,Navigation,Services; Home,Automated,"Given I open the ""Services"" page
+| QA Consultancy | 4 |",REQ-CONT-01
+TC-SERV-004,Services page,services.feature,"The ""Get in touch"" button opens the contact section",@regression,High,Navigation,Services; Home,Automated,"Given I open the ""Services"" page
 When I click the ""Get in touch"" link
 Then the URL should end with ""index.html#contact""
-And the section headed ""Let's talk about your next project"" should be in view",
+And the section headed ""Let's talk about your next project"" should be in view",,REQ-NAV-01
 TC-EXP-001,Experience role tabs,experience-tabs.feature,The most recent role is shown by default,@smoke @regression,High,Functional,Experience,Automated,"Given I open the ""Experience"" page
 Then there should be 8 role tabs
 And the ""Answer Digital: NHS Genomics"" tab for the ""Test Manager"" role should be selected
 And the panel for ""Answer Digital: NHS Genomics"" as ""Test Manager"" should be displayed
 And only one role panel should be visible
-And the URL should not contain a hash",
-TC-EXP-002,Experience role tabs,experience-tabs.feature,Selecting a role tab shows that role's details,@smoke @regression,High,Functional,Experience,Automated,"Given I open the ""Experience"" page
+And the URL should not contain a hash",,REQ-EXP-01
+TC-EXP-002,Experience role tabs,experience-tabs.feature,Selecting a role tab shows that role's details,@regression,High,Functional,Experience,Automated,"Given I open the ""Experience"" page
 When I select the ""<company>"" tab for the ""<role>"" role
 Then the ""<company>"" tab for the ""<role>"" role should be selected
 And the panel for ""<company>"" as ""<role>"" should be displayed
@@ -155,7 +155,7 @@ And the URL hash should be ""#<slug>""","| company | role | dates | slug |
 | Evri | Test Lead | March 2020 to January 2022 | evri |
 | Next PLC | QA Senior Test Analyst | April 2019 to March 2020 | next-2019 |
 | Computershare Loan Services | Test Analyst | October 2017 to April 2019 | computershare |
-| Provident Financial Group | Test Analyst | March 2013 to October 2017 | provident |"
+| Provident Financial Group | Test Analyst | March 2013 to October 2017 | provident |",REQ-EXP-01
 TC-EXP-003,Experience role tabs,experience-tabs.feature,A role can be opened directly from a link,@regression,High,Navigation,Experience,Automated,"Given I open the path ""experience.html#<slug>""
 Then the ""<company>"" tab for the ""<role>"" role should be selected
 And the panel for ""<company>"" as ""<role>"" should be displayed
@@ -167,10 +167,10 @@ And only one role panel should be visible","| slug | company | role |
 | evri | Evri | Test Lead |
 | next-2019 | Next PLC | QA Senior Test Analyst |
 | computershare | Computershare Loan Services | Test Analyst |
-| provident | Provident Financial Group | Test Analyst |"
+| provident | Provident Financial Group | Test Analyst |",REQ-EXP-01
 TC-EXP-004,Experience role tabs,experience-tabs.feature,An unknown role link falls back to the most recent role,@regression @negative,Medium,Negative,Experience,Automated,"Given I open the path ""experience.html#does-not-exist""
 Then the ""Answer Digital: NHS Genomics"" tab for the ""Test Manager"" role should be selected
-And only one role panel should be visible",
+And only one role panel should be visible",,REQ-EXP-01
 TC-EXP-005,Experience role tabs,experience-tabs.feature,Arrow keys move between role tabs,@regression @keyboard,High,Keyboard / Accessibility,Experience,Automated,"Given I open the path ""experience.html#<start slug>""
 When I press ""<key>"" on the selected tab
 Then the ""<company>"" tab for the ""<role>"" role should be selected
@@ -179,16 +179,16 @@ And the panel for ""<company>"" as ""<role>"" should be displayed","| start slug
 | answer-digital | ArrowDown | Next PLC | Test Delivery Lead |
 | answer-digital | ArrowRight | Next PLC | Test Delivery Lead |
 | next-2023 | ArrowUp | Answer Digital: NHS Genomics | Test Manager |
-| next-2023 | ArrowLeft | Answer Digital: NHS Genomics | Test Manager |"
+| next-2023 | ArrowLeft | Answer Digital: NHS Genomics | Test Manager |",REQ-EXP-02
 TC-EXP-006,Experience role tabs,experience-tabs.feature,Arrow keys wrap around at the ends of the tab list,@regression @keyboard,Medium,Keyboard / Accessibility,Experience,Automated,"Given I open the path ""experience.html#<start slug>""
 When I press ""<key>"" on the selected tab
 Then the ""<company>"" tab for the ""<role>"" role should be selected
 And the panel for ""<company>"" as ""<role>"" should be displayed","| start slug | key | company | role |
 | answer-digital | ArrowUp | Provident Financial Group | Test Analyst |
-| provident | ArrowDown | Answer Digital: NHS Genomics | Test Manager |"
+| provident | ArrowDown | Answer Digital: NHS Genomics | Test Manager |",REQ-EXP-02
 TC-EXP-007,Experience role tabs,experience-tabs.feature,Only the selected tab is in the keyboard tab order,@regression @keyboard,Medium,Keyboard / Accessibility,Experience,Automated,"Given I open the path ""experience.html#evri""
-Then only the selected role tab should be reachable with the Tab key",
-TC-MOB-001,Mobile navigation menu,mobile-navigation.feature,The menu is collapsed on small screens,@smoke @regression @mobile,High,Responsive,All pages,Automated,"Given my browser window is 375 by 812 pixels
+Then only the selected role tab should be reachable with the Tab key",,REQ-EXP-02
+TC-MOB-001,Mobile navigation menu,mobile-navigation.feature,The menu is collapsed on small screens,@regression @mobile,High,Responsive,All pages,Automated,"Given my browser window is 375 by 812 pixels
 And I open the ""<page>"" page
 Then the ""Menu"" button should be visible
 And the header navigation should be hidden
@@ -196,7 +196,7 @@ And the menu button should show the menu is collapsed","| page |
 | Home |
 | About Me |
 | Services |
-| Experience |"
+| Experience |",REQ-RESP-01
 TC-MOB-002,Mobile navigation menu,mobile-navigation.feature,Opening and closing the menu,@smoke @regression @mobile,High,Responsive,Home,Automated,"Given my browser window is 375 by 812 pixels
 And I open the ""Home"" page
 When I click the ""Menu"" button
@@ -204,7 +204,7 @@ Then the header navigation should be visible
 And the menu button should show the menu is expanded
 When I click the ""Menu"" button
 Then the header navigation should be hidden
-And the menu button should show the menu is collapsed",
+And the menu button should show the menu is collapsed",,REQ-RESP-01
 TC-MOB-003,Mobile navigation menu,mobile-navigation.feature,Navigating to another page from the mobile menu,@regression @mobile,High,Responsive,Home,Automated,"Given my browser window is 375 by 812 pixels
 And I open the ""Home"" page
 When I click the ""Menu"" button
@@ -212,40 +212,40 @@ And I click the ""<link>"" link in the header navigation
 Then I should be on the ""<destination>"" page","| link | destination |
 | About Me | About Me |
 | Services | Services |
-| Experience | Experience |"
+| Experience | Experience |",REQ-RESP-01
 TC-MOB-004,Mobile navigation menu,mobile-navigation.feature,The navigation appears when the window is widened,@regression @mobile,Medium,Responsive,Home,Automated,"Given my browser window is 375 by 812 pixels
 And I open the ""Home"" page
 When I resize the browser window to 1280 by 800 pixels
 Then the header navigation should be visible
-And the ""Menu"" button should not be visible",
+And the ""Menu"" button should not be visible",,REQ-RESP-01
 TC-MOB-005,Mobile navigation menu,mobile-navigation.feature,The menu button is not shown on desktop screens,@regression,Medium,Responsive,Home,Automated,"Given my browser window is 1280 by 800 pixels
 And I open the ""Home"" page
 Then the header navigation should be visible
-And the ""Menu"" button should not be visible",
+And the ""Menu"" button should not be visible",,REQ-RESP-01
 TC-MOB-006,Mobile navigation menu,mobile-navigation.feature,The menu collapses when the window is narrowed,@regression @mobile,Medium,Responsive,Home,Automated,"Given my browser window is 1280 by 800 pixels
 And I open the ""Home"" page
 When I resize the browser window to 375 by 812 pixels
 Then the ""Menu"" button should be visible
 And the header navigation should be hidden
-And the menu button should show the menu is collapsed",
+And the menu button should show the menu is collapsed",,REQ-RESP-01
 TC-FOOT-001,Site footer,footer.feature,The copyright notice shows the current year,@regression,Medium,Functional,All pages,Automated,"Given I open the ""<page>"" page
 Then the footer should show the copyright notice for the current year","| page |
 | Home |
 | About Me |
 | Services |
-| Experience |"
+| Experience |",REQ-FOOT-01
 TC-FOOT-002,Site footer,footer.feature,The footer LinkedIn link opens in a new tab,@regression,Medium,Functional,All pages,Automated,"Given I open the ""<page>"" page
 Then the ""LinkedIn"" link should open ""https://www.linkedin.com/in/shakeel-malik-75149a85/"" in a new tab","| page |
 | Home |
 | About Me |
 | Services |
-| Experience |"
+| Experience |",REQ-FOOT-01 REQ-CONT-02
 TC-A11Y-001,Accessibility and page metadata,accessibility.feature,Pages have no serious or critical accessibility violations,@regression @a11y,High,Accessibility,All pages,Automated,"Given I open the ""<page>"" page
 Then the page should have no serious or critical accessibility violations","| page |
 | Home |
 | About Me |
 | Services |
-| Experience |"
+| Experience |",REQ-A11Y-01
 TC-A11Y-002,Accessibility and page metadata,accessibility.feature,"Pages declare their language, a description and one main heading",@regression @seo,Medium,Accessibility / SEO,All pages,Automated,"Given I open the ""<page>"" page
 Then the page language should be ""en-GB""
 And the page should have a meta description
@@ -253,4 +253,293 @@ And the page should have exactly one main heading","| page |
 | Home |
 | About Me |
 | Services |
-| Experience |"
+| Experience |",REQ-A11Y-01
+TC-AUTH-001,Admin sign-in,admin-sign-in,Staff can sign in with valid credentials,@regression @admin @auth-credentials,High,Functional,Admin: Sign in,Automated,"Given I open the admin sign-in page
+When I sign in as the ""<role>"" with the correct password
+Then I should be on the ""Manage services"" admin page
+And the session banner should show the ""<role>"" account with the ""<label>"" role","| role | label |
+| editor | Editor |
+| viewer | Viewer |",REQ-AUTH-01
+TC-AUTH-002,Admin sign-in,admin-sign-in,A wrong username or password gets the same generic error,@regression @admin @negative @auth-credentials,High,Negative / Security,Admin: Sign in,Automated,"Given I open the admin sign-in page
+When I sign in with username ""<username>"" and password ""<password>""
+Then I should see the sign-in error ""Invalid username or password.""
+And I should be on the ""Sign in"" admin page","| username | password |
+| {editor} | wrong-password-1 |
+| {viewer} | wrong-password-1 |
+| nobody | wrong-password-1 |",REQ-AUTH-02
+TC-AUTH-003,Admin sign-in,admin-sign-in,Empty sign-in fields are rejected,@regression @admin @negative,Medium,Negative / Validation,Admin: Sign in,Automated,"Given I open the admin sign-in page
+When I sign in with username ""<username>"" and password ""<password>""
+Then I should see the sign-in error ""Enter your username and password.""
+And I should be on the ""Sign in"" admin page","| username | password |
+|  |  |
+| someone |  |
+|  | some-password |",REQ-AUTH-02
+TC-AUTH-004,Admin sign-in,admin-sign-in,"Sign-in is locked after 3 failed attempts, even with the correct password",@regression @admin @negative @auth-credentials,High,Negative / Security,Admin: Sign in,Automated,"Given I open the admin sign-in page
+When I fail to sign in 3 times
+Then I should see the sign-in error ""Too many failed attempts. Try again in 1 minute.""
+When I sign in as the ""editor"" with the correct password
+Then I should see the sign-in error ""Too many failed attempts. Try again in 1 minute.""
+And I should be on the ""Sign in"" admin page",,REQ-AUTH-02
+TC-AUTH-005,Admin sign-in,admin-sign-in,The lock-out ends after one minute,@regression @admin @auth-credentials,Medium,Functional,Admin: Sign in,Automated,"Given the browser clock is controlled
+And I open the admin sign-in page
+When I fail to sign in 3 times
+And 61 seconds pass
+And I sign in as the ""editor"" with the correct password
+Then I should be on the ""Manage services"" admin page",,REQ-AUTH-02
+TC-AUTH-006,Admin sign-in,admin-sign-in,The password can be shown and hidden,@regression @admin,Low,Usability,Admin: Sign in,Automated,"Given I open the admin sign-in page
+When I type ""Example-123"" in the password field
+Then the password characters should be hidden
+When I click the ""Show password"" button
+Then the password characters should be visible
+And the ""Hide password"" button should be visible
+When I click the ""Hide password"" button
+Then the password characters should be hidden",,REQ-AUTH-01
+TC-AUTH-007,Admin sign-in,admin-sign-in,Signing out ends the session,@regression @admin,High,Functional / Security,Admin: Sign in,Automated,"Given I am signed in as the ""Editor""
+When I click the ""Sign out"" button
+Then I should be on the ""Sign in"" admin page
+And I should see the sign-in notice ""You have been signed out.""
+When I open the admin page ""Manage services""
+Then I should be on the ""Sign in"" admin page
+And I should see the sign-in notice ""Please sign in to continue.""",,REQ-AUTH-03
+TC-AUTH-008,Admin sign-in,admin-sign-in,The back button does not reveal admin data after signing out,@regression @admin @negative,High,Security,Admin: Sign in,Automated,"Given I am signed in as the ""Editor""
+And I open a second tab on the admin page ""Manage services""
+When I open the ""Services"" page
+And I sign out in the second tab
+And I go back in the browser
+Then I should be on the ""Sign in"" admin page
+And the services table should not be visible",,REQ-AUTH-03
+TC-AUTH-009,Admin sign-in,admin-sign-in,The session expires after 15 minutes of inactivity,@regression @admin,High,Functional / Security,Admin: Sign in,Automated,"Given the browser clock is controlled
+And I am signed in as the ""Editor""
+When 16 minutes pass
+And I click the ""Add service"" button
+Then I should be on the ""Sign in"" admin page
+And I should see the sign-in notice ""Your session has expired. Please sign in again.""",,REQ-AUTH-03
+TC-AUTH-010,Admin sign-in,admin-sign-in,Activity keeps the session alive,@regression @admin,Medium,Functional,Admin: Sign in,Automated,"Given the browser clock is controlled
+And I am signed in as the ""Editor""
+When 10 minutes pass
+And I click the ""Add service"" button
+And 10 minutes pass
+And I click the ""Cancel"" button
+Then I should be on the ""Manage services"" admin page
+And the service form should be closed",,REQ-AUTH-03
+TC-AUTH-011,Admin sign-in,admin-sign-in,Signing out in one tab signs out the other tab,@regression @admin,Medium,Functional / Security,Admin: Sign in,Automated,"Given I am signed in as the ""Editor""
+And I open a second tab on the admin page ""Manage services""
+When I sign out in the second tab
+Then the first tab should be on the ""Sign in"" admin page",,REQ-AUTH-03
+TC-ACC-001,Admin access control,admin-access,Signed-out visitors are sent to the sign-in page,@regression @admin @negative,High,Security,Admin,Automated,"Given I open the admin page ""Manage services""
+Then I should be on the ""Sign in"" admin page
+And I should see the sign-in notice ""Please sign in to continue.""
+And the services table should not be visible",,REQ-AUTH-04
+TC-ACC-002,Admin access control,admin-access,Signed-in staff skip the sign-in page,@regression @admin,Low,Functional,Admin,Automated,"Given I am signed in as the ""Editor""
+When I open the admin page ""Sign in""
+Then I should be on the ""Manage services"" admin page",,REQ-AUTH-04
+TC-ACC-003,Admin access control,admin-access,Viewers have read-only access,@regression @admin,High,Security / Permissions,Admin,Automated,"Given I am signed in as the ""Viewer""
+Then the read-only notice ""You have read-only access. Ask an editor to make changes."" should be shown
+And the ""Add service"" button should not be visible
+And the ""Reset to original services"" button should not be visible
+And the services table should have no Edit or Delete buttons
+And the services table should list 6 services",,REQ-AUTH-05
+TC-ACC-004,Admin access control,admin-access,A viewer cannot change services even by bypassing the screen,@regression @admin @negative,High,Security / Permissions,Admin,Automated,"Given I am signed in as the ""Viewer""
+When I try to save a service directly through the browser
+Then the change should be refused with ""Not permitted: read-only access""
+When I open the ""Services"" page
+Then I should see 6 service cards",,REQ-AUTH-05
+TC-ACC-005,Admin access control,admin-access,A signed-out visitor cannot change services either,@regression @admin @negative,High,Security / Permissions,Services,Automated,"Given I open the ""Services"" page
+When I try to save a service directly through the browser
+Then the change should be refused with ""Not permitted: read-only access""
+And I should see 6 service cards",,REQ-AUTH-05
+TC-SVC-001,Services management,admin-services,Editors see the six current services and the edit controls,@regression @admin,High,Functional,Admin: Manage services,Automated,"Given I am signed in as the ""Editor""
+Then the services table should list:
+| Software Testing |
+| Test Management |
+| Test Leadership |
+| UAT Management |
+| Test Automation |
+| QA Consultancy |
+And the ""Add service"" button should be visible
+And the ""Reset to original services"" button should be visible",,REQ-SVC-01
+TC-SVC-002,Services management,admin-services,An editor can add a service,@smoke @regression @admin,High,Functional,Admin: Manage services,Automated,"Given I am signed in as the ""Editor""
+When I click the ""Add service"" button
+And I fill in the service form:
+| Title | Security Testing Coordination |
+| Summary | Planning and tracking third-party security testing. |
+| Items | Scope the test\nTrack the findings |
+And I click the ""Save service"" button
+Then the status message should be ""Service added.""
+And the service form should be closed
+And the services table should list 7 services
+And the services table should include ""Security Testing Coordination""",,REQ-SVC-01
+TC-SVC-003,Services management,admin-services,An added service appears on the public Services page,@regression @admin,High,End-to-end,Admin: Manage services; Services,Automated,"Given I am signed in as the ""Editor""
+When I add a service with the title ""Security Testing Coordination""
+Then the status message should be ""Service added.""
+When I open the ""Services"" page
+Then I should see 7 service cards
+And the ""Security Testing Coordination"" service card should list the items:
+| First item |
+| Second item |
+When I open the path ""services.html#security-testing-coordination""
+Then the ""Security Testing Coordination"" service card should be in view",,REQ-SVC-03
+TC-SVC-004,Services management,admin-services,Changes survive a page reload,@regression @admin,Medium,Functional,Admin: Manage services,Automated,"Given I am signed in as the ""Editor""
+When I add a service with the title ""Persistence Check""
+And I reload the page
+Then the services table should list 7 services
+And the services table should include ""Persistence Check""",,REQ-SVC-03
+TC-SVC-005,Services management,admin-services,An editor can edit a service and the public page shows the change,@regression @admin,High,End-to-end,Admin: Manage services; Services,Automated,"Given I am signed in as the ""Editor""
+When I click the ""Edit Software Testing"" button
+Then the service form should be open
+And the ""Title"" field should contain ""Software Testing""
+And the ""Summary"" field should contain ""Thorough testing from front end to back end.""
+When I change the ""Summary"" field to ""Updated summary for the testing service.""
+And I click the ""Save service"" button
+Then the status message should be ""Service updated.""
+And the ""Software Testing"" row should show the summary ""Updated summary for the testing service.""
+When I open the ""Services"" page
+Then the ""Software Testing"" service card should have the summary ""Updated summary for the testing service.""",,REQ-SVC-01 REQ-SVC-03
+TC-SVC-006,Services management,admin-services,Renaming a service keeps its existing link working,@regression @admin,Medium,Functional / Regression,Admin: Manage services; Services,Automated,"Given I am signed in as the ""Editor""
+When I click the ""Edit Software Testing"" button
+And I change the ""Title"" field to ""Software Testing Services""
+And I click the ""Save service"" button
+Then the status message should be ""Service updated.""
+When I open the path ""services.html#testing""
+Then the ""Software Testing Services"" service card should be in view",,REQ-SVC-01 REQ-SVC-03
+TC-SVC-007,Services management,admin-services,Cancelling an edit discards the changes,@regression @admin,Medium,Functional,Admin: Manage services,Automated,"Given I am signed in as the ""Editor""
+When I click the ""Edit Test Management"" button
+And I change the ""Title"" field to ""Changed title""
+And I click the ""Cancel"" button
+Then the service form should be closed
+And the services table should include ""Test Management""
+And the services table should not include ""Changed title""",,REQ-SVC-01
+TC-SVC-008,Services management,admin-services,Deleting a service asks for confirmation and removes it from the public page,@regression @admin,High,End-to-end,Admin: Manage services; Services,Automated,"Given I am signed in as the ""Editor""
+When I click the ""Delete UAT Management"" button
+Then the confirmation should say ""Delete UAT Management? This cannot be undone.""
+When I click the ""Confirm"" button
+Then the status message should be ""Service deleted.""
+And the services table should list 5 services
+And the services table should not include ""UAT Management""
+When I open the ""Services"" page
+Then I should see 5 service cards
+And there should be no ""UAT Management"" service card",,REQ-SVC-01 REQ-SVC-03
+TC-SVC-009,Services management,admin-services,Cancelling a delete keeps the service,@regression @admin,Medium,Functional,Admin: Manage services,Automated,"Given I am signed in as the ""Editor""
+When I click the ""Delete QA Consultancy"" button
+And I click the ""Cancel"" button
+Then the services table should list 6 services
+And the services table should include ""QA Consultancy""",,REQ-SVC-01
+TC-SVC-010,Services management,admin-services,Services featured on the home page cannot be deleted,@regression @admin @negative,Medium,Business rule,Admin: Manage services,Automated,"Given I am signed in as the ""Editor""
+Then the ""Delete <title>"" button should be disabled","| title |
+| Software Testing |
+| Test Management |
+| Test Leadership |
+| Test Automation |",REQ-SVC-01
+TC-SVC-011,Services management,admin-services,Duplicate and too-short titles are rejected,@regression @admin @negative,High,Negative / Validation,Admin: Manage services,Automated,"Given I am signed in as the ""Editor""
+When I add a service with the title ""<title>""
+Then the service form should show the error ""<message>"" for the ""Title"" field","| title | message |
+| ab | Title must be between 3 and 60 characters. |
+| software testing | A service with this title already exists. |
+| SOFTWARE TESTING | A service with this title already exists. |",REQ-SVC-02
+TC-SVC-012,Services management,admin-services,Values just outside the limits are rejected,@regression @admin @negative @boundary,High,Boundary / Validation,Admin: Manage services,Automated,"Given I am signed in as the ""Editor""
+When I add a service with a <field> of <length> characters
+Then the service form should show the error ""<message>"" for the ""<error field>"" field","| field | length | error field | message |
+| title | 0 | Title | Enter a service title. |
+| title | 2 | Title | Title must be between 3 and 60 characters. |
+| title | 61 | Title | Title must be between 3 and 60 characters. |
+| summary | 0 | Summary | Enter a short summary. |
+| summary | 151 | Summary | Summary must be 150 characters or fewer. |
+| item | 101 | Items | Each item must be 100 characters or fewer. |",REQ-SVC-02
+TC-SVC-013,Services management,admin-services,Values exactly at the limits are accepted,@regression @admin @boundary,High,Boundary / Validation,Admin: Manage services,Automated,"Given I am signed in as the ""Editor""
+When I add a service with a <field> of <length> characters
+Then the service should be saved","| field | length |
+| title | 3 |
+| title | 60 |
+| summary | 1 |
+| summary | 150 |
+| item | 100 |",REQ-SVC-02
+TC-SVC-014,Services management,admin-services,Too few or too many items are rejected,@regression @admin @negative @boundary,Medium,Boundary / Validation,Admin: Manage services,Automated,"Given I am signed in as the ""Editor""
+When I add a service with <count> items
+Then the service form should show the error ""<message>"" for the ""Items"" field","| count | message |
+| 0 | Add at least one item. |
+| 11 | No more than 10 items. |",REQ-SVC-02
+TC-SVC-015,Services management,admin-services,One item and ten items are accepted,@regression @admin @boundary,Medium,Boundary / Validation,Admin: Manage services,Automated,"Given I am signed in as the ""Editor""
+When I add a service with <count> items
+Then the service should be saved","| count |
+| 1 |
+| 10 |",REQ-SVC-02
+TC-SVC-016,Services management,admin-services,"All errors are shown together, linked to their fields, with focus on the first",@regression @admin @negative @a11y,High,Negative / Accessibility,Admin: Manage services,Automated,"Given I am signed in as the ""Editor""
+When I click the ""Add service"" button
+And I click the ""Save service"" button
+Then the service form should show the error ""Enter a service title."" for the ""Title"" field
+And the service form should show the error ""Enter a short summary."" for the ""Summary"" field
+And the service form should show the error ""Add at least one item."" for the ""Items"" field
+And the ""Title"" field should have keyboard focus
+And the service form should be open",,REQ-SVC-02 REQ-A11Y-02
+TC-SVC-017,Services management,admin-services,The add form is empty each time it is opened,@regression @admin,Medium,Functional / State,Admin: Manage services,Automated,"Given I am signed in as the ""Editor""
+When I click the ""Edit Software Testing"" button
+And I click the ""Cancel"" button
+And I click the ""Add service"" button
+Then the ""Title"" field should be empty
+And the ""Summary"" field should be empty
+And the ""Items"" field should be empty",,REQ-SVC-01
+TC-SVC-018,Services management,admin-services,Special characters and unicode are saved and displayed correctly,@regression @admin,Medium,Data / Unicode,Admin: Manage services; Services,Automated,"Given I am signed in as the ""Editor""
+When I add a service with the title ""<title>""
+Then the service should be saved
+And the services table should include ""<title>""
+When I open the ""Services"" page
+Then I should see 7 service cards
+And the ""<title>"" service card should have the summary ""A short summary for testing.""","| title |
+| O'Brien & Sons: QA/UAT |
+| R&D Testing (Phase 2) |
+| Café QA — 测试 |",REQ-SVC-02 REQ-SVC-03
+TC-SVC-019,Services management,admin-services,Script text in a service is shown as text and never run,@regression @admin @security,High,Security (XSS),Admin: Manage services; Services,Automated,"Given I am signed in as the ""Editor""
+When I add a service with the title ""<title>""
+Then the service should be saved
+And the services table should include ""<title>""
+When I open the ""Services"" page
+Then the ""<title>"" service card should have the summary ""A short summary for testing.""
+And there should be no JavaScript errors on the page","| title |
+| <script>alert(1)</script> |
+| <img src=x onerror=alert(1)> |",REQ-SVC-04
+TC-SVC-020,Services management,admin-services,Blank lines and extra spaces in the items are ignored,@regression @admin,Low,Data handling,Admin: Manage services; Services,Automated,"Given I am signed in as the ""Editor""
+When I click the ""Add service"" button
+And I fill in the service form:
+| Title | Whitespace Check |
+| Summary | Checking how blank lines are handled. |
+| Items | First\n\n     Second\n\n |
+And I click the ""Save service"" button
+Then the service should be saved
+When I open the ""Services"" page
+Then the ""Whitespace Check"" service card should list the items:
+| First |
+| Second |",,REQ-SVC-02
+TC-SVC-021,Services management,admin-services,Resetting restores the original six services everywhere,@regression @admin,High,End-to-end,Admin: Manage services; Services,Automated,"Given I am signed in as the ""Editor""
+When I click the ""Delete UAT Management"" button
+And I click the ""Confirm"" button
+And I add a service with the title ""Extra service""
+And I click the ""Reset to original services"" button
+Then the confirmation should say ""Reset all services to the original list?""
+When I click the ""Confirm"" button
+Then the status message should be ""Services reset to the original six.""
+And the services table should list 6 services
+When I open the ""Services"" page
+Then I should see 6 service cards
+And the ""UAT Management"" service card should list 6 items",,REQ-SVC-05
+TC-SVC-022,Services management,admin-services,Cancelling a reset keeps the changes,@regression @admin,Low,Functional,Admin: Manage services,Automated,"Given I am signed in as the ""Editor""
+When I add a service with the title ""Keep Me""
+And I click the ""Reset to original services"" button
+And I click the ""Cancel"" button
+Then the services table should list 7 services
+And the services table should include ""Keep Me""",,REQ-SVC-05
+TC-A11Y-003,Admin accessibility,admin-accessibility,Admin pages have no serious or critical accessibility violations,@regression @admin @a11y,High,Accessibility,Admin,Automated,"Given the admin page is in the ""<state>"" state
+Then the page should have no serious or critical accessibility violations","| state |
+| sign-in |
+| sign-in with an error |
+| services list |
+| service form open |
+| service form with errors |",REQ-A11Y-02
+TC-A11Y-004,Admin accessibility,admin-accessibility,Staff can sign in using only the keyboard,@regression @admin @a11y @keyboard @auth-credentials,High,Keyboard / Accessibility,Admin: Sign in,Automated,"Given I open the admin sign-in page
+When I sign in using only the keyboard as the ""editor""
+Then I should be on the ""Manage services"" admin page",,REQ-A11Y-02 REQ-AUTH-01
+TC-MOB-007,Admin area on mobile,admin-mobile,Admin pages fit a phone screen without sideways scrolling,@regression @admin @mobile,Medium,Responsive,Admin,Automated,"Given my browser window is 375 by 812 pixels
+And the admin page is in the ""<state>"" state
+Then the page should not scroll sideways","| state |
+| sign-in |
+| services list |
+| service form open |",REQ-A11Y-02

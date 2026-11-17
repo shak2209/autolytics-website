@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Manage services | Autolytics</title>
+  <meta name="description" content="Manage the services shown on the Autolytics website (demo admin area).">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">Autolytics <span>IT Consultancy</span></a>
+      <div class="session-bar">
+        <span id="session-info"></span>
+        <button type="button" id="sign-out" class="btn btn-outline btn-small">Sign out</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="admin-section">
+      <div class="container">
+        <h1>Manage services</h1>
+        <p class="muted">Changes are saved in this browser and appear on the public <a href="../services.html">Services page</a>.</p>
+
+        <p id="readonly-notice" class="notice" hidden>You have read-only access. Ask an editor to make changes.</p>
+        <p id="status" class="notice notice-success" role="status" hidden></p>
+
+        <div class="toolbar" id="toolbar">
+          <button type="button" id="add-service" class="btn">Add service</button>
+          <button type="button" id="reset-services" class="btn btn-secondary">Reset to original services</button>
+        </div>
+
+        <section id="confirm-panel" class="confirm-panel" aria-label="Confirm action" hidden>
+          <p id="confirm-text"></p>
+          <button type="button" id="confirm-yes" class="btn btn-danger">Confirm</button>
+          <button type="button" id="confirm-no" class="btn btn-secondary">Cancel</button>
+        </section>
+
+        <form id="service-form" class="service-form" novalidate hidden>
+          <h2 id="form-heading">Add service</h2>
+          <div class="form-field">
+            <label for="svc-title">Title</label>
+            <input id="svc-title" name="title" type="text" autocomplete="off" aria-describedby="svc-title-error">
+            <p id="svc-title-error" class="field-error" hidden></p>
+          </div>
+          <div class="form-field">
+            <label for="svc-summary">Summary</label>
+            <input id="svc-summary" name="summary" type="text" autocomplete="off" aria-describedby="svc-summary-error">
+            <p id="svc-summary-error" class="field-error" hidden></p>
+          </div>
+          <div class="form-field">
+            <label for="svc-items">What's included (one item per line)</label>
+            <textarea id="svc-items" name="items" rows="6" aria-describedby="svc-items-error"></textarea>
+            <p id="svc-items-error" class="field-error" hidden></p>
+          </div>
+          <button type="submit" class="btn">Save service</button>
+          <button type="button" id="cancel-form" class="btn btn-secondary">Cancel</button>
+        </form>
+
+        <div class="table-wrap">
+          <table id="services-table" class="admin-table">
+            <caption class="visually-hidden">Services</caption>
+            <thead>
+              <tr><th scope="col">Service</th><th scope="col">Summary</th><th scope="col">Items</th><th scope="col" id="actions-head">Actions</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../js/store.js"></script>
+  <script src="auth.js"></script>
+  <script src="services.js"></script>
+</body>
+</html>
