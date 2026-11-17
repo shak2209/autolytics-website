@@ -71,7 +71,8 @@ const features = [...new Set(csv.map((c) => c.file))].map((file) => ({
 // ---------- Markdown ----------
 const md: string[] = [];
 md.push('# Autolytics website: test report', '');
-md.push(`Run on ${started.toLocaleString('en-GB', { dateStyle: 'long', timeStyle: 'short' })} against the local copy of the website.`, '');
+md.push(`Run on ${started.toLocaleString('en-GB', { dateStyle: 'long', timeStyle: 'short' })} against ${process.env.BASE_URL ? 'the live website' : 'the local copy of the website'}.`, '');
+md.push('Also available: [results as a spreadsheet (CSV)](test-execution-results.csv) · [detailed Playwright report](playwright-html/index.html)', '');
 md.push('## Summary', '');
 md.push('| Measure | Result |', '| --- | --- |');
 md.push(`| Test scenarios | ${csv.length} |`);
@@ -146,7 +147,8 @@ pre{background:#0f2a44;color:#e6f1ff;padding:12px 14px;border-radius:8px;overflo
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.card{background:#fff;border:1px solid #e3e8ef;border-radius:10px;padding:14px;text-align:center}
 .card strong{display:block;font-size:1.9rem;color:#0f2a44}.card span{color:#5b6676;font-size:.9rem}
 </style></head><body><main>`);
-h.push(`<h1>Autolytics website: test report</h1><p class="meta">Run on ${esc(started.toLocaleString('en-GB', { dateStyle: 'long', timeStyle: 'short' }))} against the local copy of the website. Browsers: ${browsers.map((b) => BROWSERS[b]).join(', ')}.</p>`);
+h.push(`<h1>Autolytics website: test report</h1><p class="meta">Run on ${esc(started.toLocaleString('en-GB', { dateStyle: 'long', timeStyle: 'short' }))} against ${esc(process.env.BASE_URL ? 'the live website' : 'the local copy of the website')}. Browsers: ${browsers.map((b) => BROWSERS[b]).join(', ')}.</p>
+<p class="meta">Also available: <a href="test-execution-results.csv">results as a spreadsheet (CSV)</a> · <a href="playwright-html/index.html">detailed Playwright report with traces and screenshots</a></p>`);
 h.push(`<div class="cards">
 <div class="card"><strong>${csv.length}</strong><span>Test scenarios</span></div>
 <div class="card"><strong>${total}</strong><span>Test runs</span></div>
@@ -191,4 +193,21 @@ for (const f of features) {
 h.push('</main></body></html>');
 writeFileSync('reports/TEST-REPORT.html', h.join('\n'), 'utf8');
 
-console.log(`Report written: reports/TEST-REPORT.md and reports/TEST-REPORT.html (${csv.length} scenarios, ${total} runs)`);
+// ---------- Execution results CSV (one row per executed test) ----------
+const csvCell = (v: string | number) => {
+  const s = String(v);
+  return /[",\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+};
+const STATUS_TEXT: Record<Status, string> = { pass: 'Passed', fail: 'Failed', flaky: 'Flaky', skip: 'Skipped' };
+const out = [['Test ID', 'Feature', 'Scenario', 'Priority', 'Test Type', 'Page', 'Example #', 'Example Data', 'Browser', 'Result', 'Duration (s)', 'Tags'].map(csvCell).join(',')];
+for (const c of csv) {
+  const exRows = c.examples.trim() ? lines(c.examples).map(splitRow) : [];
+  const [cols, ...data] = exRows;
+  for (const r of runs.filter((x) => x.id === c.id).sort((a, b) => a.example - b.example || browsers.indexOf(a.browser) - browsers.indexOf(b.browser))) {
+    const exampleData = r.example && data[r.example - 1] ? cols.map((col, i) => `${col}=${data[r.example - 1][i]}`).join('; ') : '';
+    out.push([c.id, c.feature, c.scenario, c.priority, c.type, c.page, r.example || '', exampleData, BROWSERS[r.browser] ?? r.browser, STATUS_TEXT[r.status], (r.ms / 1000).toFixed(2), c.tags].map(csvCell).join(','));
+  }
+}
+writeFileSync('reports/test-execution-results.csv', '﻿' + out.join('\r\n') + '\r\n', 'utf8');
+
+console.log(`Report written: reports/TEST-REPORT.md, reports/TEST-REPORT.html and reports/test-execution-results.csv (${csv.length} scenarios, ${total} runs)`);

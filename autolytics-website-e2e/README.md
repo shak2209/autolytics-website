@@ -60,8 +60,27 @@ npm run report:build     # rebuild the readable report from the last run's resul
 
 ### Readable test report
 
-`reports/TEST-REPORT.html` (open in any browser) and `reports/TEST-REPORT.md` list every scenario with its
-Gherkin steps, the example data, and the pass/fail result in each browser, plus totals by browser and by area.
+The report lists every scenario with its Gherkin steps, the example data, and the pass/fail result in each browser,
+plus totals by browser and by area. There are two ways to see it.
+
+**1. Online (no setup).** Every push to GitHub runs the tests and publishes the report at
+https://shak2209.github.io/autolytics-website/test-report/
+
+**2. On your own computer.** The report files are generated, so they do not exist until you run the tests
+(they are not stored in the repository, which is why `reports/TEST-REPORT.html` does not open on GitHub).
+
+```powershell
+cd autolytics-website-e2e
+npm install
+npm run install:browsers
+npm run test:report
+```
+
+Then open `autolytics-website-e2e\reports\TEST-REPORT.html` by double-clicking it in File Explorer. It opens in your
+browser. `reports\TEST-REPORT.md` has the same content in Markdown, and `reports\test-execution-results.csv` has one
+row per executed test, for Excel.
+
+If you have already run the tests and only want to rebuild the report, run `npm run report:build`.
 
 By default the website files in the parent folder are served at `http://127.0.0.1:4173/`.
 To test a deployed site instead: `$env:BASE_URL = 'https://your-domain/'; npm test`.

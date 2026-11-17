@@ -1,0 +1,102 @@
+name: E2E tests
+
+# Runs the Playwright BDD suite on Chrome, Firefox and Edge, then publishes the website
+# together with the readable test report to GitHub Pages.
+#   Site:   https://shak2209.github.io/autolytics-website/
+#   Report: https://shak2209.github.io/autolytics-website/test-report/
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test on Chrome, Firefox and Edge
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: autolytics-website-e2e
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: autolytics-website-e2e/package-lock.json
+
+      - run: npm ci
+
+      - name: Install browsers
+        run: npx playwright install --with-deps chrome msedge firefox
+
+      - name: Generate feature files from the CSV
+        run: npm run generate
+
+      - name: Run tests
+        run: npx playwright test
+
+      # Runs even when tests fail, so the report always shows what happened.
+      - name: Build readable report
+        if: always()
+        run: npm run report:build
+
+      - name: Add result summary to the run page
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## Test results"
+            echo
+            sed -n '/^## Summary/,/^## Results by area tested/p' reports/TEST-REPORT.md | sed '$d'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Assemble site and report for GitHub Pages
+        if: always()
+        working-directory: .
+        shell: bash
+        run: |
+          mkdir -p _site/test-report/playwright-html
+          cp index.html about.html services.html experience.html _site/
+          cp -r css js _site/
+          cp autolytics-website-e2e/reports/TEST-REPORT.html _site/test-report/index.html
+          cp autolytics-website-e2e/reports/TEST-REPORT.md autolytics-website-e2e/reports/test-execution-results.csv _site/test-report/
+          cp -r autolytics-website-e2e/reports/playwright-html/. _site/test-report/playwright-html/
+
+      - name: Upload Pages artifact
+        if: always() && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+      - name: Upload raw results (traces, screenshots, videos of failures)
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-results
+          path: autolytics-website-e2e/reports/
+          retention-days: 14
+
+  deploy:
+    name: Publish site and test report
+    needs: test
+    if: always() && github.ref == 'refs/heads/main' && needs.test.result != 'skipped' && needs.test.result != 'cancelled'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
