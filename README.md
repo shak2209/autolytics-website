@@ -22,7 +22,7 @@ e.g. `experience.html#evri`.
 
 To view it, open `index.html` in a browser.
 
-### The demo admin area (not published)
+### The demo admin area (published, behind the Login link)
 
 To give the tests real functionality to exercise, the repository includes a small staff area in [`admin/`](admin):
 sign in, then add, edit, delete and reset the services shown on the public Services page.
@@ -32,8 +32,9 @@ sign in, then add, edit, delete and reset the services shown on the public Servi
 - It runs entirely in the browser, so it **simulates** sign-in for demonstration and testing purposes. It is not real security.
 - Passwords are stored only as salted hashes in the code. The real passwords are kept out of the repository
   (a git-ignored `.env` file locally, encrypted secrets in GitHub Actions).
-- The admin area is **not part of the published website**, so visitors to the live site cannot sign in.
-  The tests run against it locally and in GitHub Actions.
+- It is reached from the **Login** link in the top banner. The username and password are not shown anywhere on the site;
+  you type them in. Visitors without them cannot sign in. Edits are stored in the visitor's own browser only,
+  so they never change what other people see.
 
 ### The test framework
 
